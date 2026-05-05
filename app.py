@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, render_template, make_response
+from flask import Flask, redirect, url_for, request, render_template, make_response, session
 app = Flask(__name__)
 
 # @app.route('/')
@@ -77,20 +77,42 @@ app = Flask(__name__)
 #     return "Method not allowed"
 
 # framework (Cookies)
-@app.route('/cookie')
-def index():
-    return render_template('cookie.html')
+# @app.route('/cookie')
+# def index():
+#     return render_template('cookie.html')
 
-@app.route('/getcookie', methods=['POST', 'GET'])
-def getcookie():
+# @app.route('/getcookie', methods=['POST', 'GET'])
+# def getcookie():
+#     if request.method == 'POST':
+#         user = request.form['nm']
+#         resp = make_response(render_template('getcookie.html', name=user))
+#         resp.set_cookie('userID', user)
+#         return resp
+#     else:
+#         user = request.cookies.get('userID')
+#         return render_template('getcookie.html', name=user or "Guest")
+
+# Framwork (Sessions)
+app.secret_key = 'admin123'
+
+@app.route('/')
+def index():
+    if 'username' in session:
+        username = session['username']
+        return 'Login as ' + username + '<br>' + "<b><a href = '/logout'>click here to log out</a></b>"
+    return "You are not logged in <br><a href = '/login'></b>" + "click here to log in</b></a>"
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
     if request.method == 'POST':
-        user = request.form['nm']
-        resp = make_response(render_template('getcookie.html', name=user))
-        resp.set_cookie('userID', user)
-        return resp
-    else:
-        user = request.cookies.get('userID')
-        return render_template('getcookie.html', name=user or "Guest")
+        session['username'] = request.form['username']
+        return redirect(url_for('index'))
+    return render_template('session.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
