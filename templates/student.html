@@ -1,18 +1,19 @@
+<!doctype html>
 <html>
+<body>
+    <form action=" {{ url_for('addrec') }}" method="POST">
+        <h3>Student Information</h3>
 
-    <body>
+        Name<br>
+        <input type="text" name="nm" /></br>
+        Address<br>
+        <textarea name="add"></textarea><br>
+        City<br>
+        <input type="text" name="city"><br>
+        PINCODE<br>
+        <input type="text" name="pin"><br>
+        <input type="submit" value="submit"><br>
+    </form>
+</body>
 
-        <form action="http://127.0.0.1:5000/result" method="POST">
-            <p>Name</p>
-            <p> <input type="text" name="Name" /></p>
-            <p>Physics</p>
-            <p> <input type="text" name="physics" /></p>
-            <p>Chemistry</p>
-            <p> <input type="text" name="chemistry" /></p>
-            <p>Maths</p>
-            <p> <input type="text" name="Mathematics" /></p>
-            <p><input type="submit" value="submit" /></p>
-        </form>
-
-    </body>
 </html>

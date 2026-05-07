@@ -6,9 +6,14 @@
     <title>Form</title>
 </head>
 <body>
-    <form action="http://127.0.0.1:5000/login" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="username" required><br><br>
-        <input type="submit" value="Submit">
+    <form action="" method="POST">
+        <dl>
+            <dt>Username:</dt>
+            <dd><input type="text" name="username" value="{{request.form.get('username')}}" /></dd>
+            <dt>Password:</dt>
+            <dd><input type="password" name="password"/></dd>
+             <dd><input type="submit" value="Login" /></dd>
+        </dl>
+    </form>
 </body>
 </html>
